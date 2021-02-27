@@ -1,0 +1,4 @@
+trigger GoldenAccount on Opportunity (after insert,after update) {
+    GoldenAccount.GoldenTrigger(Trigger.New);
+    
+}

@@ -1,0 +1,32 @@
+public class ProfileUpdate {
+    public static void ProfileUpdateTrigger(List<Account> acclist){
+        
+        set<id> accountId=new set<id>();
+        for(Account a : acclist){
+            
+            if(!String.isBlank(a.Website)){
+                accountId.add(a.Id);
+            }
+        }
+        
+        if(accountId.size()>0){
+            map<id,account> accountmap=new map<id,account>([select id,Website,(select id,Profile__c,FirstName,LastName from contacts) from account where id in:accountId]);
+            List<contact> contactlist = new List<contact>();
+            for(account a : accountmap.values()){
+                
+                Account b =accountmap.get(a.id);
+                List<Contact> CW = b.Contacts;
+                if(CW.size()>0){
+                    for(contact con : CW){                        
+                        con.Profile__c=a.Website+'/'+con.FirstName.substring(0,1)+con.LastName;
+                        contactlist.add(con);
+                    }
+                }
+            }
+                       
+            if(!contactlist.isEmpty()){
+                update contactlist;
+            }     
+        }    
+    }    
+}

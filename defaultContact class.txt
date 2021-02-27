@@ -1,0 +1,49 @@
+public class DefaultContactOnly{
+public static void CreateContact(List<Account> acclist){
+        Set<id> accountids = new Set<id>();
+        List<Contact> contactlist =  new List<Contact>();  
+        List<Account> account = new List<Account>();        
+        for(Account a :acclist){
+          Contact c =   new Contact();        
+            c.AccountId=a.id;
+            c.LastName = 'Default';
+            c.FirstName = 'Info';
+            c.Email = 'info@websitedomain.tld' + a.Name;
+            contactlist.add(c);  
+            accountids.add(a.Id);          
+                    }
+           insert contactlist;
+        for(Account nattu : [Select id , Only_Default_Contact__c from  Account Where id in : accountids ])
+       {
+         nattu.Only_Default_Contact__c = True;
+           account.add(nattu);
+      }
+       
+        update account;
+    }  
+
+
+    public static void UpdateAccount(List<Contact> con){
+        Set<id> accid = new Set<id>();
+        for(Contact w : con){            
+            if(w.accountid!=null){
+                accid.add(w.accountid);
+            }
+        }
+       
+         if(accid.size()>0){
+        map<id,account> accountmap=new map<id,account>([select id,Website,(select id,Profile__c,FirstName,LastName from contacts) from account where id in:accid]);
+        List<Account> fame =  new List<Account>();
+        for(id i :accid ){
+           
+              Account b =accountmap.get(i);
+                List<contact>lstCont = b.contacts;
+            if(lstCont.size()>0){
+                b.Only_Default_Contact__c = False;
+                fame.add(b);
+            }
+        }
+             update fame;
+    }
+   
+    }

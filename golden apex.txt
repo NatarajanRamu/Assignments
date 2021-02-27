@@ -1,0 +1,33 @@
+public class GoldenAccount {
+    public static void GoldenTrigger(List<Opportunity> acclist){
+List<Account> ltAccounts = new List<Account>();
+   
+    Set<Id> setAccountIds = new Set<Id>();
+   
+    Map<Id, Opportunity> mapAccIdOpp = new Map<Id,Opportunity>();
+   
+    
+    for(Opportunity obj : acclist){
+        setAccountIds.add(obj.AccountId);
+    }
+       
+    for (Opportunity obj : acclist){
+        mapAccIdOpp.put(obj.AccountId, obj);
+    }
+   
+    for (Account obj : [SELECT Id, is_goldenAccount__c FROM Account WHERE Id IN : setAccountIds]){
+        If(mapAccIdOpp.get(obj.Id).Amount>50000){
+            obj.is_goldenAccount__c = TRUE;
+            ltAccounts.add(obj);
+        }
+        else{
+            obj.is_goldenAccount__c = FALSE;
+        ltAccounts.add(obj);
+        }
+    }
+   
+    if(ltAccounts.size() > 0)
+        upsert ltAccounts;
+    
+}
+}

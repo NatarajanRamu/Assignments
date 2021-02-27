@@ -1,0 +1,6 @@
+trigger ProfileUpdating on Account (after update) {
+
+    if(Trigger.isUpdate  && Trigger.isAfter){
+        ProfileUpdate.ProfileUpdateTrigger(Trigger.New);
+    }
+}

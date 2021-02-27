@@ -1,0 +1,11 @@
+trigger AccountTrigger on Account (after insert) {
+     if(trigger.isafter && trigger.isinsert) {
+		DefaultContactOnly.CreateContact(Trigger.new);
+    }
+}
+
+trigger ContactTrigger on Contact (after insert) {
+     if(trigger.isafter && trigger.isinsert) {
+		DefaultContactOnly.UpdateAccount(Trigger.new);
+    }
+}

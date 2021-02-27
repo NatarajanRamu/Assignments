@@ -1,0 +1,26 @@
+@isTest
+public class TestTriggerHandler {
+
+     @isTest    
+    public static void testAccountWebsite(){
+       
+        Account b = new Account();
+        b.Name = 'ProfileTest';
+        insert b;
+       
+        id nattu = b.id;
+       
+        Contact con = new Contact();
+        con.LastName = 'Leach';
+        con.FirstName = 'Jack';
+        con.AccountId = nattu;
+        insert con;            
+       
+         Test.startTest();
+        b.Website = 'www.jl.com';
+        update b;
+        Contact cont = [Select id, Profile__c from Contact Where id=:con.Id ];      
+        System.assertEquals('testwebsite/JLeach', con.Profile__c);
+          Test.stopTest();
+    }
+}
