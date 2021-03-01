@@ -8,7 +8,7 @@ public static void CreateContact(List<Account> acclist){
             c.AccountId=a.id;
             c.LastName = 'Default';
             c.FirstName = 'Info';
-            c.Email = 'info@websitedomain.tld' + a.Name;
+            c.Email = 'info@websitedomain.tld' ;
             contactlist.add(c);  
             accountids.add(a.Id);          
                     }
@@ -47,3 +47,4 @@ public static void CreateContact(List<Account> acclist){
     }
    
     }
+}
