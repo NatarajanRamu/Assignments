@@ -20,7 +20,7 @@ public class TestTriggerHandler {
         b.Website = 'www.jl.com';
         update b;
         Contact cont = [Select id, Profile__c from Contact Where id=:con.Id ];      
-        System.assertEquals('testwebsite/JLeach', con.Profile__c);
+        System.assertEquals('www.jl.com/JLeach', cont.Profile__c);
           Test.stopTest();
     }
 }
