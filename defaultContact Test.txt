@@ -1,26 +1,19 @@
 @isTest
-public class TestTriggerHandler {
+public class DefaultContactTest {
 
      @isTest    
-    public static void testAccountWebsite(){
+    public static void DefaultTest(){
        
-        Account b = new Account();
-        b.Name = 'ProfileTest';
-        insert b;
-       
-        id nattu = b.id;
-       
-        Contact con = new Contact();
-        con.LastName = 'Leach';
-        con.FirstName = 'Jack';
-        con.AccountId = nattu;
-        insert con;            
-       
-         Test.startTest();
-        b.Website = 'www.jl.com';
-        update b;
-        Contact cont = [Select id, Profile__c from Contact Where id=:con.Id ];      
-        System.assertEquals('testwebsite/JLeach', con.Profile__c);
-          Test.stopTest();
+        Account acc = new Account();
+        acc.name='asrfv';
+        insert acc;
+        Contact c = new Contact();
+        c.AccountId=acc.id;
+        c.FirstName='sonu';
+        c.LastName='john';
+        
+        insert c;
+        
+        System.assertequals(acc.Only_Default_Contact__c=true, acc.Only_Default_Contact__c=true);
     }
 }
